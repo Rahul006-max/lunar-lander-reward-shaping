@@ -1,3 +1,15 @@
+# Environments & Dependencies
+venv/
+env/
+ENV/
+.env
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
 # Generated video recordings
 **/*video*/
 *.mp4
