@@ -1,0 +1,6 @@
+# Generated video recordings
+**/*video*/
+*.mp4
+*.mov
+*.avi
+*.mkv
