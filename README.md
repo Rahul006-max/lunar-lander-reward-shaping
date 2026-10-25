@@ -1,4 +1,4 @@
-# 🚀 Lunar Lander: Reward Shaping & Reinforcement Learning Journey
+# Lunar Lander: Reward Shaping & Reinforcement Learning Journey
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-v1.0.0-darkgreen.svg?logo=openai)](https://gymnasium.farama.org/)
@@ -13,11 +13,11 @@ An end-to-end research and educational project exploring **Reinforcement Learnin
 ## 🎬 Live Demonstration
 
 <div align="center">
-  <video src="space_lander-episode-1.mp4" width="720" controls autoplay loop muted playsinline>
-    <p>Your browser does not support the video tag. You can <a href="space_lander-episode-1.mp4">download the demo video</a> directly.</p>
-  </video>
-  <br>
+  <img src="space_lander-episode-1.gif" alt="Lunar Lander Autonomous Flight Demo" width="720">
+  <br><br>
   <sub><b>Figure 1:</b> Autonomous dead-center touchdown by <code>ppo_lander_perfect</code> inside the procedurally redesigned Deep Space environment with live telemetry HUD (Episode 1).</sub>
+  <br>
+  <sub><a href="space_lander-episode-1.mp4"><b>▶️ Watch / Download High-Definition 60fps MP4 Video</b></a></sub>
 </div>
 
 ---
@@ -199,6 +199,7 @@ The `SpaceThemeVisualWrapper` hooks directly into the Gymnasium rendering pipeli
 ├── .gitignore                     # Git ignore rules for virtual envs & generated clips
 ├── requirements.txt               # Pinned project dependencies
 ├── README.md                      # Comprehensive project documentation
+├── space_lander-episode-1.gif     # Embedded animated demo for GitHub preview
 ├── space_lander-episode-1.mp4     # Highlight video demo (Episode 1: 250+ Bullseye)
 │
 ├── train_lander.py                # Phase 1: Train baseline PPO model (1M steps)
@@ -326,3 +327,4 @@ The agent observes an 8-dimensional continuous vector:
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute for educational, research, and personal projects.
+
