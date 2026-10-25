@@ -8,7 +8,17 @@
 
 An end-to-end research and educational project exploring **Reinforcement Learning (RL)**, **Proximal Policy Optimization (PPO)**, **Reward Hacking (Specification Gaming)**, and **Potential-Based Reward Shaping (PBRS)** in Gymnasium's `LunarLander-v3` environment.
 
-This repository chronicles the evolution of an AI pilot—progressing from chaotic random crashes to baseline landing, falling into the trap of infinite-hover reward exploitation, overcoming it through formal reward shaping theory, and culminating in a dead-center bullseye lander with a retro-futuristic cockpit HUD and procedurally generated deep-space visual redesign.
+---
+
+## 🎬 Live Demonstration
+
+<div align="center">
+  <video src="space_lander-episode-1.mp4" width="720" controls autoplay loop muted playsinline>
+    <p>Your browser does not support the video tag. You can <a href="space_lander-episode-1.mp4">download the demo video</a> directly.</p>
+  </video>
+  <br>
+  <sub><b>Figure 1:</b> Autonomous dead-center touchdown by <code>ppo_lander_perfect</code> inside the procedurally redesigned Deep Space environment with live telemetry HUD (Episode 1).</sub>
+</div>
 
 ---
 
@@ -29,6 +39,7 @@ This repository chronicles the evolution of an AI pilot—progressing from chaot
 - [Installation & Setup](#-installation--setup)
 - [Usage Guide](#-usage-guide)
 - [State & Action Space Reference](#-state--action-space-reference)
+- [References](#-references)
 - [License](#-license)
 
 ---
@@ -45,12 +56,12 @@ This repository implements, demonstrates, and benchmarks these core reinforcemen
 
 ```mermaid
 flowchart TD
-    A[Random Baseline<br>random_lander.py] -->|1,000,000 steps| B[Standard PPO Agent<br>train_lander.py<br>Score: ~230]
-    B -->|Fine-tune -0.05/frame| C[Time Penalty Agent<br>step5_time_penalty.py<br>Faster Descents]
-    B -->|Naive +1.0/frame reward| D[Reward Hacking Exploit<br>step6_break_hover.py<br>Infinite Hovering Loophole]
-    B -->|Potential-Based Shaping| E[Fixed Shaping Agent<br>step6_fix_lander.py<br>PBRS Loophole Closed]
-    B -->|X-distance potential + HUD| F[Precision HUD Lander<br>precision_hud_lander.py<br>Dead-Center Landing]
-    B -->|PBRS + Space Visuals + HUD| G[Perfect Visual Lander<br>perfect_visual_lander.py<br>Score: 250+ Bullseye]
+    A["Random Baseline<br><code>random_lander.py</code>"] -->|"1,000,000 steps"| B["Standard PPO Agent<br><code>train_lander.py</code><br>Score: ~230"]
+    B -->|"Fine-tune -0.05/frame"| C["Time Penalty Agent<br><code>step5_time_penalty.py</code><br>Faster Descents"]
+    B -->|"Naive +1.0/frame reward"| D["Reward Hacking Exploit<br><code>step6_break_hover.py</code><br>Infinite Hovering Loophole"]
+    B -->|"Potential-Based Shaping"| E["Fixed Shaping Agent<br><code>step6_fix_lander.py</code><br>PBRS Loophole Closed"]
+    B -->|"X-distance potential + HUD"| F["Precision HUD Lander<br><code>precision_hud_lander.py</code><br>Dead-Center Landing"]
+    B -->|"PBRS + Space Visuals + HUD"| G["Perfect Visual Lander<br><code>perfect_visual_lander.py</code><br>Score: 250+ Bullseye"]
 ```
 
 ---
@@ -79,6 +90,9 @@ flowchart TD
   $$\text{if } |\theta| < 0.2 \text{ and } |v_x| < 0.2 \text{ and } |v_y| < 0.2 \implies r' = r + 1.0$$
 - **The Exploit**: The agent discovered that landing yields a one-time terminal reward (+100), but **hovering in mid-air** forever pays $+1.0$ every frame indefinitely! The agent learned to float gracefully in place, completely abandoning its mission to land.
 
+> [!WARNING]
+> **Specification Gaming Observed**: Because the time horizon allows hundreds of steps, hovering generated far higher cumulative returns than touching down. The agent successfully maximized the specified reward while failing the intended task.
+
 ### Phase 4: Fixing the Loophole with Potential-Based Shaping
 - **Script**: `step6_fix_lander.py`
 - **Model Checkpoint**: `ppo_lander_fixed.zip`
@@ -100,6 +114,7 @@ flowchart TD
 ### Phase 6: The Masterpiece — Deep Space Visual Lander
 - **Script**: `perfect_visual_lander.py`
 - **Model Checkpoint**: `ppo_lander_perfect.zip`
+- **Video Demonstration**: `space_lander-episode-1.mp4`
 - **Wrappers**: `PerfectCenterWrapper`, `SpaceThemeVisualWrapper`
 - **Advancements**:
   - **Comprehensive Potential**: $\Phi(s) = -(40 |x| + 20 |v_x| + 40 |\theta|)$ with a terminal accuracy bonus of up to $+50.0$.
@@ -181,9 +196,10 @@ The `SpaceThemeVisualWrapper` hooks directly into the Gymnasium rendering pipeli
 
 ```
 .
-├── .gitignore                     # Git ignore rules for video captures & virtual envs
+├── .gitignore                     # Git ignore rules for virtual envs & generated clips
 ├── requirements.txt               # Pinned project dependencies
 ├── README.md                      # Comprehensive project documentation
+├── space_lander-episode-1.mp4     # Highlight video demo (Episode 1: 250+ Bullseye)
 │
 ├── train_lander.py                # Phase 1: Train baseline PPO model (1M steps)
 ├── random_lander.py               # Phase 1: Visualizes un-trained random actions
@@ -230,7 +246,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-> **Note for Box2D on Windows**: If `gymnasium[box2d]` requires compilation tools, you can install pre-built wheels via `pip install swig gymnasium[box2d]`.
+> [!NOTE]
+> **Windows Box2D Installation**: If `gymnasium[box2d]` requires compilation tools, you can install pre-built wheels via `pip install swig gymnasium[box2d]`.
 
 ---
 

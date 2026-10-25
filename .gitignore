@@ -16,3 +16,6 @@ __pycache__/
 *.mov
 *.avi
 *.mkv
+
+# Exceptions for README documentation demo
+!space_lander-episode-1.mp4
